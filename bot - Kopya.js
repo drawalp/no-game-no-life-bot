@@ -41,17 +41,17 @@ client.on('message', msg => {
 client.on('message', msg => {
   if (!msg.guild) return;
   if (msg.content.startsWith() === prefix + 'gir')) {
-    const channel = m.guild.channels.get(m.content.split(' ')[1]) || m.member.voiceChannel;
+    const channel = msg.guild.channels.get(msg.content.split(' ')[1]) || msg.member.voiceChannel;
     if (channel && channel.type === 'voice') {
       channel.join().then(conn => {
         conn.player.on('error', (...e) => console.log('player', ...e));
-        if (!connections.has(m.guild.id)) connections.set(m.guild.id, { conn, queue: [] });
-        m.reply('tamamdır!');
+        if (!connections.has(msg.guild.id)) connections.set(msg.guild.id, { conn, queue: [] });
+        msg.reply('tamamdır!');
       });
     } else {
-      m.reply('Lütfen bir sesli kanala giriniz!');
+      msg.reply('Lütfen bir sesli kanala giriniz!');
     }
-  } else if (m.content.startsWith('/çal')) {
+  } else if (msg.content.startsWith('?çal')) {
     if (connections.has(m.guild.id)) {
       const connData = connections.get(m.guild.id);
       const queue = connData.queue;
