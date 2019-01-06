@@ -36,13 +36,9 @@ client.on('message', msg => {
     } else {
       msg.channel.sendMessage(`Bot yeniden başlatılıyor...`).then(msg => {
       console.log(`BOT: Bot yeniden başlatılıyor...`);
-      process.exit(0);
-    })
-   }
+      process.exit(0);    
   }
-});
-
-client.on('message', m => {
+client.on('message', msg => {
   if (!msg.guild) return;
   if (msg.content.startsWith() === prefix + 'gir')) {
     const channel = m.guild.channels.get(m.content.split(' ')[1]) || m.member.voiceChannel;
