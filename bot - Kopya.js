@@ -37,65 +37,9 @@ client.on('message', msg => {
       msg.channel.sendMessage(`Bot yeniden başlatılıyor...`).then(msg => {
       console.log(`BOT: Bot yeniden başlatılıyor...`);
       process.exit(0);    
-  }
-  if (!msg.guild) return;
-  if (msg.content.toLowerCase() === prefix + 'gir') {
-    const channel = msg.guild.channels.get(msg.content.split(' ')[1]) || msg.member.voiceChannel;
-    if (channel && channel.type === 'voice') {
-      channel.join().then(conn => {
-        conn.player.on('error', (...e) => console.log('player', ...e));
-        if (!connections.has(msg.guild.id)) connections.set(msg.guild.id, { conn, queue: [] });
-        msg.reply('tamamdır!');
-      });
-    } else {
-      msg.reply('Lütfen bir sesli kanala giriniz!');
-    }
-  } else if (msg.content.startsWith('?çal')) {
-    if (connections.has(m.guild.id)) {
-      const connData = connections.get(m.guild.id);
-      const queue = connData.queue;
-      const url = m.content.split(' ').slice(1).join(' ')
-        .replace(/</g, '')
-        .replace(/>/g, '');
-      queue.push({ url, m });
-      if (queue.length > 1) {
-        m.reply(`İstediğiniz müzik ${queue.length - 1} adet müzikten sonra çalacak`);
-        return;
-      }
-      doQueue(connData);
-    }
-  } else if (m.content.startsWith('/geç')) {
-    if (connections.has(m.guild.id)) {
-      const connData = connections.get(m.guild.id);
-      if (connData.dispatcher) {
-        connData.dispatcher.end();
-      }
-    }
-  } else if (m.content.startsWith('/kuyruk')) {
-    if (connections.has(m.guild.id)) {
-      const connData = connections.get(m.guild.id);
-      const queue = connData.queue;
-      m.reply(queue.map(q => q.url));
-    }
+   })
+   }
   }
 });
-
-function doQueue(connData) {
-  const conn = connData.conn;
-  const queue = connData.queue;
-  const item = queue[0];
-  if (!item) return;
-  const stream = ytdl(item.url, { filter: 'audioonly' }, { passes: 3 });
-  const dispatcher = conn.playStream(stream);
-  stream.on('info', info => {
-    item.m.reply(`Çalınan: **${info.title}**`);
-  });
-  dispatcher.on('end', () => {
-    queue.shift();
-    doQueue(connData);
-  });
-  dispatcher.on('error', (...e) => console.log('dispatcher', ...e));
-  connData.dispatcher = dispatcher;
-}
 
 client.login(ayarlar.token);
