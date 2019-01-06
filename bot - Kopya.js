@@ -38,9 +38,8 @@ client.on('message', msg => {
       console.log(`BOT: Bot yeniden başlatılıyor...`);
       process.exit(0);    
   }
-client.on('message', msg => {
   if (!msg.guild) return;
-  if (msg.content.toLowerCase() === prefix + 'gir')) {
+  if (msg.content.toLowerCase() === prefix + 'gir') {
     const channel = msg.guild.channels.get(msg.content.split(' ')[1]) || msg.member.voiceChannel;
     if (channel && channel.type === 'voice') {
       channel.join().then(conn => {
