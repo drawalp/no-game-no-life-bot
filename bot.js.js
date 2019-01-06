@@ -749,7 +749,6 @@ client.on('error', e => {
 const { Client } = require('discord.js');
 const YouTube = require('simple-youtube-api');
 const yt = require('ytdl-core');
-const ayarlar = require('./ayarlar.json');
 const client = new Client();
 
 const youtube = new YouTube(ayarlar.api);
