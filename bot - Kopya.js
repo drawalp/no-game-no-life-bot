@@ -44,7 +44,7 @@ client.on('message', msg => {
 
 client.on('message', m => {
   if (!m.guild) return;
-  if (m.content.startsWith('/gir')) {
+  if (m.content.startsWith() === prefix + 'gir')) {
     const channel = m.guild.channels.get(m.content.split(' ')[1]) || m.member.voiceChannel;
     if (channel && channel.type === 'voice') {
       channel.join().then(conn => {
