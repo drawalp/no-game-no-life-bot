@@ -15,7 +15,7 @@ const log = message => {
 const activities_list = [
     "7/24 Aktif", 
     "2019'un Tadını Çıkartın",
-    "https://discord.gg/HN5PPDN", 
+    "?davet yazarak davet edebilirsiniz", 
     "?yardım | Yardım Al",
 	"Yeni Komutlar Eklendi"
     ]; // creates an arraylist containing phrases you want your bot to switch through.
